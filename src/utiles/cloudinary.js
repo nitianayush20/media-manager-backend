@@ -3,8 +3,8 @@ import fs from "fs"
           
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_NAME  , 
-  api_key: CLOUDIINART_API_KEY, 
-  api_secret: CLOUDINARY_API_SECRET
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 const uploadOnCloudinary = async (localFilePath)=>{
@@ -17,6 +17,7 @@ const uploadOnCloudinary = async (localFilePath)=>{
         //file has been uploaded successsfully
         console.log("file uploaded" , response  )
 
+        fs.unlinkSync(localFilePath)
         return response;
 
     } catch (error) {
@@ -29,8 +30,8 @@ const uploadOnCloudinary = async (localFilePath)=>{
 
 }
 
-cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-  { public_id: "olympic_flag" }, 
-  function(error, result) {console.log(result); });
+// cloudinary.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+//   { public_id: "olympic_flag" }, 
+//   function(error, result) {console.log("result:" , result); });
 
   export {uploadOnCloudinary}
